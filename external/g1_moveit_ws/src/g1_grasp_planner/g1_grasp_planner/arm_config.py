@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
+
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
 
 
 @dataclass(frozen=True)
@@ -24,7 +28,9 @@ ARM_CONFIGS = {
 }
 
 
-DEFAULT_TARGET_HAND_FILE = "/home/louisxx/g1_grasp_pipeline_workspace/runtime/locked_target_hand.txt"
+DEFAULT_TARGET_HAND_FILE = str(
+    WORKSPACE_ROOT.parent / "inner_projects_g1_vision_grasp_pipeline" / "runtime" / "locked_target_hand.txt"
+)
 DEFAULT_HAND_DEADBAND_M = 0.02
 ARM_CHOICES = ("auto", *tuple(sorted(ARM_CONFIGS)))
 

@@ -8,6 +8,9 @@ from pathlib import Path
 import yaml
 
 
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+
+
 def load_yaml(path: str | Path) -> dict:
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     if not isinstance(data, dict):
@@ -77,9 +80,9 @@ def verify_mapping(joint_names: list[str], mapping: dict) -> tuple[list[str], li
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Verify MoveIt trajectory joint names against Unitree G1 motor indices.")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
-    parser.add_argument("--mapping", default="/home/louisxx/g1_moveit_ws/config/unitree_g1_29_joint_map.yaml")
-    parser.add_argument("--report", default="/home/louisxx/g1_moveit_ws/runtime/hardware_mapping_report.json")
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
+    parser.add_argument("--mapping", default=str(WORKSPACE_ROOT / "config" / "unitree_g1_29_joint_map.yaml"))
+    parser.add_argument("--report", default=str(WORKSPACE_ROOT / "runtime" / "hardware_mapping_report.json"))
     return parser
 
 

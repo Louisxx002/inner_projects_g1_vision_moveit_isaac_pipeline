@@ -2,6 +2,11 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from pathlib import Path
+
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[5]
+GRASP_WORKSPACE_ROOT = WORKSPACE_ROOT.parent / "inner_projects_g1_vision_grasp_pipeline"
 
 
 def generate_launch_description():
@@ -12,7 +17,7 @@ def generate_launch_description():
         [
             DeclareLaunchArgument(
                 "target_file",
-                default_value="/home/louisxx/g1_grasp_pipeline_workspace/runtime/locked_target_xyz.txt",
+                default_value=str(GRASP_WORKSPACE_ROOT / "runtime" / "locked_target_xyz.txt"),
             ),
             DeclareLaunchArgument("arm", default_value="right"),
             Node(

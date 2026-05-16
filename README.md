@@ -12,7 +12,7 @@ RealSense + YOLO
 It integrates the vision workspace with a MoveIt/Isaac planning stack:
 
 - `inner_projects_g1_vision_grasp_pipeline`: vision, YOLO, RealSense, target locking
-- `g1_moveit_ws`: MoveIt planning and Isaac playback. Source dependency is packaged under `external/g1_moveit_ws/`; local smoke verification used the already-built overlay at `/home/louisxx/g1_moveit_ws`.
+- `external/g1_moveit_ws/`: MoveIt planning and Isaac playback source. Build it in place, or point `MOVEIT_WS` at an existing overlay.
 
 ## Check
 

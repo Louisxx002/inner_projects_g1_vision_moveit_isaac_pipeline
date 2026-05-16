@@ -12,6 +12,9 @@ from rclpy.node import Node
 from trajectory_msgs.msg import JointTrajectoryPoint
 
 
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+
+
 def seconds_to_duration(value: float) -> Duration:
     duration = Duration()
     duration.sec = int(value)
@@ -66,7 +69,7 @@ class TrajectoryReplay(Node):
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Replay a saved plan-only trajectory to RViz display_planned_path.")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
     parser.add_argument("--topic", default="/display_planned_path")
     parser.add_argument("--model-id", default="g1")
     parser.add_argument("--duration", type=float, default=20.0)

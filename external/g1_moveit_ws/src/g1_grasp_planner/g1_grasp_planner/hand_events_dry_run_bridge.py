@@ -8,6 +8,7 @@ from pathlib import Path
 
 VALID_EVENTS = {"open", "close", "release"}
 VALID_HANDS = {"left", "right"}
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
 
 
 def load_trajectory(path: str | Path) -> dict:
@@ -69,10 +70,10 @@ def validate_hand_events(data: dict, *, require_grasp_sequence: bool) -> tuple[l
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Dry-run hand event bridge. Prints open/close/release timing only.")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
     parser.add_argument("--hand-mode", choices=("inspire", "dex3"), default="inspire")
     parser.add_argument("--require-grasp-sequence", action=argparse.BooleanOptionalAction, default=True)
-    parser.add_argument("--report", default="/home/louisxx/g1_moveit_ws/runtime/hand_events_dry_run_report.json")
+    parser.add_argument("--report", default=str(WORKSPACE_ROOT / "runtime" / "hand_events_dry_run_report.json"))
     return parser
 
 

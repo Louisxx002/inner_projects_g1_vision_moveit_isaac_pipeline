@@ -17,6 +17,10 @@ from g1_grasp_planner.pre_execution_gate import StateValidityClient, run_file_ch
 from g1_grasp_planner.verify_hardware_mapping import verify_mapping
 
 
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+GRASP_WORKSPACE_ROOT = WORKSPACE_ROOT.parent / "inner_projects_g1_vision_grasp_pipeline"
+
+
 def load_trajectory(path: str | Path) -> dict:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     summary = data.get("summary", {})
@@ -117,11 +121,11 @@ def print_send_plan(trajectory: dict, mapping: dict, mapped_rows: list[dict], ma
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Dry-run Unitree trajectory bridge. Prints the send plan only.")
-    parser.add_argument("--target-file", default="/home/louisxx/g1_grasp_pipeline_workspace/runtime/locked_target_xyz.txt")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
-    parser.add_argument("--review", default="/home/louisxx/g1_moveit_ws/runtime/last_trajectory_review.json")
-    parser.add_argument("--gate-report", default="/home/louisxx/g1_moveit_ws/runtime/dry_run_bridge_gate_report.json")
-    parser.add_argument("--mapping", default="/home/louisxx/g1_moveit_ws/config/unitree_g1_29_joint_map.yaml")
+    parser.add_argument("--target-file", default=str(GRASP_WORKSPACE_ROOT / "runtime" / "locked_target_xyz.txt"))
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
+    parser.add_argument("--review", default=str(WORKSPACE_ROOT / "runtime" / "last_trajectory_review.json"))
+    parser.add_argument("--gate-report", default=str(WORKSPACE_ROOT / "runtime" / "dry_run_bridge_gate_report.json"))
+    parser.add_argument("--mapping", default=str(WORKSPACE_ROOT / "config" / "unitree_g1_29_joint_map.yaml"))
     parser.add_argument("--target-hand-file", default=DEFAULT_TARGET_HAND_FILE)
     parser.add_argument("--hand-deadband", type=float, default=DEFAULT_HAND_DEADBAND_M)
     parser.add_argument("--arm", choices=ARM_CHOICES, default="auto")

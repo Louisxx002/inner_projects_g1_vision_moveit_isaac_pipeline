@@ -23,6 +23,10 @@ from g1_grasp_planner.arm_config import (
 from g1_grasp_planner.safety import parse_xyz, read_xyz_file
 
 
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+GRASP_WORKSPACE_ROOT = WORKSPACE_ROOT.parent / "inner_projects_g1_vision_grasp_pipeline"
+
+
 class StateValidityClient(Node):
     def __init__(self) -> None:
         super().__init__("g1_pre_execution_gate")
@@ -173,10 +177,10 @@ def run_file_checks(args: argparse.Namespace) -> tuple[list[str], dict]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Fail-closed pre-execution gate for a saved MoveIt trajectory.")
-    parser.add_argument("--target-file", default="/home/louisxx/g1_grasp_pipeline_workspace/runtime/locked_target_xyz.txt")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
-    parser.add_argument("--review", default="/home/louisxx/g1_moveit_ws/runtime/last_trajectory_review.json")
-    parser.add_argument("--report", default="/home/louisxx/g1_moveit_ws/runtime/pre_execution_gate_report.json")
+    parser.add_argument("--target-file", default=str(GRASP_WORKSPACE_ROOT / "runtime" / "locked_target_xyz.txt"))
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
+    parser.add_argument("--review", default=str(WORKSPACE_ROOT / "runtime" / "last_trajectory_review.json"))
+    parser.add_argument("--report", default=str(WORKSPACE_ROOT / "runtime" / "pre_execution_gate_report.json"))
     parser.add_argument("--target-hand-file", default=DEFAULT_TARGET_HAND_FILE)
     parser.add_argument("--hand-deadband", type=float, default=DEFAULT_HAND_DEADBAND_M)
     parser.add_argument("--arm", choices=ARM_CHOICES, default="auto")

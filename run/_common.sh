@@ -31,6 +31,14 @@ source_moveit_overlay() {
   set -u
 }
 
+moveit_workspace_root() {
+  if [[ -n "${MOVEIT_WS:-}" ]]; then
+    printf '%s\n' "${MOVEIT_WS}"
+    return
+  fi
+  printf '%s\n' "${FULL_PIPELINE_WS}/external/g1_moveit_ws"
+}
+
 require_file() {
   [[ -f "$1" ]] || die "$2 missing: $1"
 }

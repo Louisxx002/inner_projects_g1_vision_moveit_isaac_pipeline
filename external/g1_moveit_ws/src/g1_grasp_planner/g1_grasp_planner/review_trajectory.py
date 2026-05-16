@@ -9,6 +9,9 @@ from pathlib import Path
 import yaml
 
 
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+
+
 def load_joint_limits(path: str | Path) -> dict:
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     if not isinstance(data, dict) or not isinstance(data.get("joint_limits"), dict):
@@ -183,8 +186,8 @@ def review_trajectory(args: argparse.Namespace) -> tuple[list[str], dict]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Review a saved MoveIt plan-only trajectory JSON before any execution bridge.")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
-    parser.add_argument("--joint-limits", default="/home/louisxx/g1_moveit_ws/src/g1_moveit_config/config/joint_limits.yaml")
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
+    parser.add_argument("--joint-limits", default=str(WORKSPACE_ROOT / "src" / "g1_moveit_config" / "config" / "joint_limits.yaml"))
     parser.add_argument("--velocity-scale", type=float, default=0.15)
     parser.add_argument("--acceleration-scale", type=float, default=0.15)
     parser.add_argument("--tolerance", type=float, default=1.05)
@@ -193,7 +196,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-waist-roll-abs", type=float, default=0.25)
     parser.add_argument("--max-waist-pitch-abs", type=float, default=0.25)
     parser.add_argument("--max-waist-delta", type=float, default=0.35)
-    parser.add_argument("--report", default="/home/louisxx/g1_moveit_ws/runtime/last_trajectory_review.json")
+    parser.add_argument("--report", default=str(WORKSPACE_ROOT / "runtime" / "last_trajectory_review.json"))
     return parser
 
 

@@ -9,16 +9,17 @@ from pathlib import Path
 
 
 def parse_args() -> argparse.Namespace:
+    workspace_root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--trajectory",
         type=Path,
-        default=Path("/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json"),
+        default=workspace_root / "runtime" / "last_plan_only_trajectory.json",
     )
     parser.add_argument(
         "--robot-usd",
         type=Path,
-        default=Path("/home/louisxx/g1_moveit_ws/runtime/isaac/g1.usd"),
+        default=workspace_root / "runtime" / "isaac" / "g1.usd",
     )
     return parser.parse_args()
 

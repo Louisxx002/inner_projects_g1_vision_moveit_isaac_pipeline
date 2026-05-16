@@ -10,7 +10,8 @@ from pathlib import Path
 import numpy as np
 
 
-GRASP_WORKSPACE = Path("/home/louisxx/g1_grasp_pipeline_workspace")
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+GRASP_WORKSPACE = WORKSPACE_ROOT.parent / "inner_projects_g1_vision_grasp_pipeline"
 if str(GRASP_WORKSPACE) not in sys.path:
     sys.path.insert(0, str(GRASP_WORKSPACE))
 
@@ -114,7 +115,7 @@ def event_target(event_name: str, hand: str, left_open: np.ndarray, right_open: 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Execute or dry-run hand_events from a MoveIt grasp sequence.")
-    parser.add_argument("--trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
+    parser.add_argument("--trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
     parser.add_argument("--hand-mode", choices=("inspire", "dex3"), default="inspire")
     parser.add_argument("--enable-live-hand", action="store_true", help="Actually initialize DDS and command the hand.")
     parser.add_argument("--respect-timing", action=argparse.BooleanOptionalAction, default=True)

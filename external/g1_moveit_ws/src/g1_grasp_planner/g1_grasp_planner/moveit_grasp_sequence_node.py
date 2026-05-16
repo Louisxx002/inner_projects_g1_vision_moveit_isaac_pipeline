@@ -37,6 +37,9 @@ from g1_grasp_planner.safety import (
 )
 
 
+WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+GRASP_WORKSPACE_ROOT = WORKSPACE_ROOT.parent / "inner_projects_g1_vision_grasp_pipeline"
+
 DEFAULT_LEFT_PLACE = np.array([0.40, 0.18, 0.10], dtype=float)
 DEFAULT_RIGHT_PLACE = np.array([0.40, -0.18, 0.10], dtype=float)
 
@@ -218,7 +221,7 @@ def write_grasp_sequence_json(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Plan a full MoveIt grasp sequence without robot execution.")
     parser.add_argument("--target-source", choices=("file", "ros2"), default="file")
-    parser.add_argument("--target-file", default="/home/louisxx/g1_grasp_pipeline_workspace/runtime/locked_target_xyz.txt")
+    parser.add_argument("--target-file", default=str(GRASP_WORKSPACE_ROOT / "runtime" / "locked_target_xyz.txt"))
     parser.add_argument("--ros-topic", default=DEFAULT_ROS_TOPIC)
     parser.add_argument("--wait-timeout", type=float, default=None)
     parser.add_argument("--target-hand-file", default=DEFAULT_TARGET_HAND_FILE)
@@ -240,7 +243,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--allowed-planning-time", type=float, default=5.0)
     parser.add_argument("--velocity-scale", type=float, default=0.15)
     parser.add_argument("--acceleration-scale", type=float, default=0.15)
-    parser.add_argument("--output-trajectory", default="/home/louisxx/g1_moveit_ws/runtime/last_plan_only_trajectory.json")
+    parser.add_argument("--output-trajectory", default=str(WORKSPACE_ROOT / "runtime" / "last_plan_only_trajectory.json"))
     parser.add_argument("--constrain-waist", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--waist-path-constraints", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--waist-yaw-tolerance", type=float, default=0.35)

@@ -2,7 +2,9 @@
 set -euo pipefail
 
 g1_moveit_ws_root() {
-  printf '%s\n' "${G1_MOVEIT_WS:-/home/louisxx/g1_moveit_ws}"
+  local root
+  root="$(cd "${SCRIPT_DIR}/.." && pwd)"
+  printf '%s\n' "${G1_MOVEIT_WS:-${root}}"
 }
 
 ros2_setup_base() {
@@ -22,8 +24,8 @@ ros2_setup_overlay() {
 
 isaac_setup_common() {
   ISAAC_IMAGE="${ISAACSIM_IMAGE:-nvcr.io/nvidia/isaac-sim:5.1.0}"
-  ISAAC_WORKSPACE_HOST="${G1_MOVEIT_WS:-/home/louisxx/g1_moveit_ws}"
-  ISAAC_CACHE_HOST="${ISAACSIM_CACHE:-/home/louisxx/docker/isaac-sim}"
+  ISAAC_WORKSPACE_HOST="$(g1_moveit_ws_root)"
+  ISAAC_CACHE_HOST="${ISAACSIM_CACHE:-${HOME}/docker/isaac-sim}"
 }
 
 isaac_prepare_cache() {
