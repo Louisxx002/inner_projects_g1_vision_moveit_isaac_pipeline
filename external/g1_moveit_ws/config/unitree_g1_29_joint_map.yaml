@@ -1,0 +1,60 @@
+robot: g1_29
+control_mode: arm-sdk
+command_topic: rt/arm_sdk
+state_topic: rt/lowstate
+lower_body_controller: official
+weight_joint:
+  name: kNotUsedJoint0
+  unitree_index: 29
+moveit_to_unitree:
+  waist_yaw_joint:
+    unitree_name: kWaistYaw
+    unitree_index: 12
+  waist_roll_joint:
+    unitree_name: kWaistRoll
+    unitree_index: 13
+  waist_pitch_joint:
+    unitree_name: kWaistPitch
+    unitree_index: 14
+  left_shoulder_pitch_joint:
+    unitree_name: kLeftShoulderPitch
+    unitree_index: 15
+  left_shoulder_roll_joint:
+    unitree_name: kLeftShoulderRoll
+    unitree_index: 16
+  left_shoulder_yaw_joint:
+    unitree_name: kLeftShoulderYaw
+    unitree_index: 17
+  left_elbow_joint:
+    unitree_name: kLeftElbow
+    unitree_index: 18
+  left_wrist_roll_joint:
+    unitree_name: kLeftWristRoll
+    unitree_index: 19
+  left_wrist_pitch_joint:
+    unitree_name: kLeftWristPitch
+    unitree_index: 20
+  left_wrist_yaw_joint:
+    unitree_name: kLeftWristYaw
+    unitree_index: 21
+  right_shoulder_pitch_joint:
+    unitree_name: kRightShoulderPitch
+    unitree_index: 22
+  right_shoulder_roll_joint:
+    unitree_name: kRightShoulderRoll
+    unitree_index: 23
+  right_shoulder_yaw_joint:
+    unitree_name: kRightShoulderYaw
+    unitree_index: 24
+  right_elbow_joint:
+    unitree_name: kRightElbow
+    unitree_index: 25
+  right_wrist_roll_joint:
+    unitree_name: kRightWristRoll
+    unitree_index: 26
+  right_wrist_pitch_joint:
+    unitree_name: kRightWristPitch
+    unitree_index: 27
+  right_wrist_yaw_joint:
+    unitree_name: kRightWristYaw
+    unitree_index: 28

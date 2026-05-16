@@ -1,0 +1,6 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: g1_moveit_config
+    relative_path: config/g1.urdf
+  srdf:
+    relative_path: config/g1.srdf
