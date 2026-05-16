@@ -11,13 +11,13 @@ RealSense + YOLO
 
 It integrates the vision workspace with a MoveIt/Isaac planning stack:
 
-- `g1_grasp_pipeline_workspace` / `inner_projects_g1_vision_grasp_pipeline`: vision, YOLO, RealSense, target locking
+- `inner_projects_g1_vision_grasp_pipeline`: vision, YOLO, RealSense, target locking
 - `g1_moveit_ws`: MoveIt planning and Isaac playback. Source dependency is packaged under `external/g1_moveit_ws/`; local smoke verification used the already-built overlay at `/home/louisxx/g1_moveit_ws`.
 
 ## Check
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 ./run/00_check_prereqs.sh
 ```
 
@@ -26,28 +26,28 @@ cd /home/louisxx/g1_full_pipeline_ws
 Terminal 1:
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 ./run/01_start_vision_ros2.sh
 ```
 
 Terminal 2:
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 ./run/02_start_moveit_demo.sh
 ```
 
 Terminal 3:
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 ./run/03_plan_grasp_from_ros2.sh
 ```
 
 Terminal 4:
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 xhost +local:docker
 ./run/04_play_isaac_gui.sh
 ```
@@ -55,7 +55,7 @@ xhost +local:docker
 ## One Command
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 xhost +local:docker
 ./run/10_full_vision_moveit_isaac.sh
 ```
@@ -70,7 +70,7 @@ This starts MoveIt, publishes one fake ROS2 target, and verifies that the
 MoveIt planner can produce `last_plan_only_trajectory.json`.
 
 ```bash
-cd /home/louisxx/g1_full_pipeline_ws
+cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 ./run/20_smoke_fake_target_to_plan.sh
 ```
 
