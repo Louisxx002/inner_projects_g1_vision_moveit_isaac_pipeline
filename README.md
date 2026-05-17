@@ -14,11 +14,35 @@ It integrates the vision workspace with a MoveIt/Isaac planning stack:
 - `inner_projects_g1_vision_grasp_pipeline`: vision, YOLO, RealSense, target locking
 - `external/g1_moveit_ws/`: MoveIt planning and Isaac playback source. Build it in place, or point `MOVEIT_WS` at an existing overlay.
 
+## What It Can Complete
+
+```text
+Vision workspace target lock
+  -> ROS2 PointStamped on /g1/locked_grasp_target
+  -> MoveIt grasp planner
+  -> trajectory JSON
+  -> Isaac Sim playback script
+```
+
+The repository can run a fake-target smoke test without a camera, and it can run the full RealSense/YOLO to MoveIt/Isaac sequence when the external hardware, ROS2 overlay, and Isaac environment are available.
+
 ## Check
 
 ```bash
 cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipeline
 ./run/00_check_prereqs.sh
+```
+
+The prereq check verifies:
+
+```text
+1. Vision workspace path
+2. MoveIt workspace path
+3. YOLO model and hand-eye calibration files
+4. Isaac playback script
+5. Vision Python imports
+6. ROS2 and MoveIt overlay packages
+7. Runtime target transfer files
 ```
 
 ## Run Step By Step
@@ -80,4 +104,17 @@ cd /home/louisxx/inner_project_repos/inner_projects_g1_vision_moveit_isaac_pipel
 TARGET_CLASS=bottle ./run/01_start_vision_ros2.sh
 G1_WAIT_TIMEOUT=60 ./run/10_full_vision_moveit_isaac.sh
 VISION_NO_DISPLAY=1 ./run/01_start_vision_ros2.sh
+```
+
+Shared defaults live in `config/paths.env`. Common overrides:
+
+```bash
+VISION_WS=/path/to/inner_projects_g1_vision_grasp_pipeline
+MOVEIT_WS=/path/to/g1_moveit_ws
+ROS_DISTRO=jazzy
+ROS_TOPIC=/g1/locked_grasp_target
+G1_ARM=auto
+G1_TARGET_SOURCE=ros2
+TRAJECTORY_JSON=/path/to/last_plan_only_trajectory.json
+LOG_DIR=/path/to/logs
 ```
